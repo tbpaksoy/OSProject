@@ -21,25 +21,23 @@ namespace OSProject
 
         private void label1_Click(object sender, EventArgs e)
         {
-
+            HardwareInfo hardware = new HardwareInfo();
+            hardware.AddSearchTerms("NumberOfCores" , "Win32_Processor");
+            hardware.AddSearchTerms("Name", "Win32_Processor");
+            hardware.AddSearchTerms("MaxClockSpeed", "Win32_Processor");
+            hardware.AddSearchTerms("NumberOfLogicalProcessors", "Win32_Processor");
+            //hardware.AddSearchTerms("Layout", "Win32_Keyboard");
+            string[] asd = hardware.GetSearchTerms();
+            label1.Text = null;
+            foreach(string s in asd) 
+            {
+                label1.Text += s + "\n";
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            label1.Text = null;
-            ManagementObjectSearcher searcher = new ManagementObjectSearcher("select MaxClockSpeed,Name,Manufacturer,Family from Win32_Processor");
-            foreach (var item in searcher.Get())
-            {
-                label1.Text += (item["MaxClockSpeed"]).ToString() + "Hz \n";
-                label1.Text += item["Name"].ToString() + "\n";
-                label1.Text += item["Manufacturer"].ToString() + "\n" ;
-                label1.Text += item["Family"].ToString() + "\n" ;
-                label1.Text += (float) new ComputerInfo().TotalPhysicalMemory / (float)1073741824;
-            }
-            Timer timer = new Timer();
-            timer.Interval = 500;
-            timer.Tick += new EventHandler(UpdateCurentClockLabel);
-            timer.Start();
+
         }
         private uint GetCurrentCPUClock() 
         {
@@ -52,7 +50,7 @@ namespace OSProject
         }
         private void UpdateCurentClockLabel(object sender, EventArgs e) 
         {
-            label2.Text = GetCurrentCPUClock().ToString() + "Hz";
+
         }
     }
 }
