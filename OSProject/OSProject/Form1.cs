@@ -22,11 +22,16 @@ namespace OSProject
         private void label1_Click(object sender, EventArgs e)
         {
             HardwareInfo hardware = new HardwareInfo();
+            /*
             hardware.AddSearchTerms("NumberOfCores" , "Win32_Processor");
             hardware.AddSearchTerms("Name", "Win32_Processor");
             hardware.AddSearchTerms("MaxClockSpeed", "Win32_Processor");
-            hardware.AddSearchTerms("NumberOfLogicalProcessors", "Win32_Processor");
+            hardware.AddSearchTerms("NumberOfLogicalProcessors", "Win32_Processor");*/
+            /*hardware.AddSearchTerms("InstallDate", "Win32_TemperatureProbe ");
+            hardware.AddSearchTerms("MaxReadable", "Win32_TemperatureProbe");*/
             //hardware.AddSearchTerms("Layout", "Win32_Keyboard");
+            hardware.AddSearchTerms("DeviceID", "Win32_DiskDrive");
+            hardware.AddSearchTerms("Model", "Win32_DiskDrive");
             string[] asd = hardware.GetSearchTerms();
             label1.Text = null;
             foreach(string s in asd) 
