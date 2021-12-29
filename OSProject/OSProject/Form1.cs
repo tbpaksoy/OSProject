@@ -26,7 +26,7 @@ namespace OSProject
             hardware.AddSearchTerms("Name", "Win32_Processor");
             hardware.AddSearchTerms("MaxClockSpeed", "Win32_Processor");
             hardware.AddSearchTerms("NumberOfLogicalProcessors", "Win32_Processor");
-            //hardware.AddSearchTerms("Layout", "Win32_Keyboard");
+            hardware.AddSearchTerms("Layout", "Win32_Keyboard");
             string[] asd = hardware.GetSearchTerms();
             label1.Text = null;
             foreach(string s in asd) 

@@ -14,36 +14,33 @@ namespace OSProject
 
         public void AddSearchTerms(string term, string source) 
         {
-            if(!this.source.Contains(source.Trim()))
-            this.source.Add(source.Trim());
-            toSearch.Add(term.Trim());
+            this.source.Add(source);
+            toSearch.Add(term);
         }
         public string[] GetSearchTerms() 
         {
             string[] result = new string[toSearch.Count];
-            string query = "SELECT ";
-            for(int i = 0; i < toSearch.Count; i++) 
-            {
-                query += toSearch[i];
-                if (i == toSearch.Count - 1) continue;
-                query += ",";
-            }
-            query += " FROM ";
-            for(int i = 0; i < source.Count; i++) 
-            {
-                query += source[i];
-                if (i == source.Count - 1) continue;
-                query += ",";
-            }
-            ManagementObjectSearcher searcher = new ManagementObjectSearcher(query);
+
             for (int i = 0; i < toSearch.Count; i++)
             {
+                ManagementObjectSearcher searcher = new ManagementObjectSearcher($"SELECT * FROM {source[i]}");
                 foreach (var baseObject in searcher.Get())
                 {
                     result[i] = baseObject[toSearch[i]].ToString();
                 }
             }
 
+            return result;
+        }
+        public static string[] Test() 
+        {
+            string[] result = new string[2];
+            ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT * FROM Win32_Processor");
+            foreach(var baseObject in searcher.Get()) 
+            {
+                result[0] = baseObject["Win32_Processor.Availability"].ToString();
+                result[1] = baseObject["Win32_MotherboardDevice.Availability"].ToString();
+            }
             return result;
         }
     }
